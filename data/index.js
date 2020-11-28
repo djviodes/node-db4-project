@@ -4,17 +4,17 @@ const getRecipes = () => {
     return db('recipes');
 };
 
-const getShoppingList = recipe_id => {
+const getShoppingList = (recipe_id) => {
     return db('recipes_ingredients as r_i')
-        .where({recipe_id})
+        .where({ recipe_id })
         .join('ingredients as i', 'r_i.ingredient_id', '=', 'i.id')
         .select('i.*');
 };
 
 const getInstructions = (recipe_id) => {
     return db('recipes_steps as r_s')
-        .innerJoin('steps as s', 'r_s.steps_id', '=', 's.id')
-        .where('r_s', recipe_id)
+        .where({ recipe_id })
+        .innerJoin('steps as s', 'r_s.step_id', '=', 's.id')
         .select('s.*');
 };
 
