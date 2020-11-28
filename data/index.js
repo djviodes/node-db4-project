@@ -13,8 +13,8 @@ const getShoppingList = recipe_id => {
 
 const getInstructions = (recipe_id) => {
     return db('recipes_steps as r_s')
-        .where({recipe_id})
-        .join('steps as s', 'r_s.steps_id', '=', 's.id')
+        .innerJoin('steps as s', 'r_s.steps_id', '=', 's.id')
+        .where('r_s', recipe_id)
         .select('s.*');
 };
 
